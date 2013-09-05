@@ -1,0 +1,28 @@
+(dp0
+(S'Is it an animal?'
+p1
+S'Ideas generator'
+p2
+tp3
+I00
+s(g1
+S'Cat'
+p4
+tp5
+I01
+s(S'Is it a dojo question?'
+p6
+g2
+tp7
+I01
+s(g6
+S'bottle'
+p8
+tp9
+I00
+s(S'Can you drink from it'
+p10
+g8
+tp11
+I01
+s.
