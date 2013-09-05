@@ -1,36 +1,43 @@
+import sys
 import random
 import pickle
 
 def get_answer(q):
     print q
+    i = 0
     while True:
+        i += 1
+        if i > 5:
+            print "Why you no like me??"
+            raise EOFError
         try:
             ans = raw_input("y/n? ").lower()
         except KeyboardInterrupt:
-            pass
+            sys.exit()
         else:
-            if ans in 'yn':
-                return ans == 'y'
+            if ans and ans[0] in 'yn':
+                return ans[0] == 'y'
 
-def final_question(obj):
-    if get_answer('Is it %s?' % obj):
-        print 'Success'
+def final_question(obj, answers):
+    if get_answer('I think it\'s a %s?' % obj):
+        print 'Success!!!!!'
     else:
-        interogation(obj)
+        interrogation(obj, answers)
 
-def interogation(obj):
-    print 'Give me a question which differentiate between ' + obj + ' and your answer'
+def interrogation(final_obj, answers):
+    print 'Give me a question which differentiate between ' + final_obj + ' and your answer'
     question = raw_input()
     print 'Now tell me what it is'
-    obj = raw_input()
-    ans = get_answer('And would you have answered yes or no')
-    db[(question, obj)] = ans
+    new_obj = raw_input()
+    ans = get_answer('And would you have answered yes or no for %s?' % new_obj)
+    db[(question, new_obj)] = ans
+    db[(question, final_obj)] = not ans
     for q, a in answers.items():
-        db[(q, obj)] = a
+        db[(q, new_obj)] = a
     print db
     pickle.dump(db, open('db.dojo', 'w'))
 
-# not eval
+# not eval!
 db = pickle.load(open('db.dojo'))
 
 qs = {q for (q, obj) in db}
@@ -42,38 +49,20 @@ for i, question in enumerate(qs):
     answers[question] = answer
     not_objs = [obj for (q, obj), ans in db.items() if q==question and ans!=answer]
     for obj in not_objs:
-        objs.remove(obj)
+        if obj in objs:
+            objs.remove(obj)
 
     if len(objs) == 1 or i==19:
-        final_question(obj)
-        # print 'IT IS ' + obj
+        final_question(obj, answers)
         break
-    print 'it could be', objs
+    print '\t\t\t(it could be %s things)' % len(objs)
 else:
-    print "I ran out of questions"
+    print "\t\t\tI ran out of questions :("
     if objs:
         for obj in objs:
-            interogation(obj)
+            interrogation(obj, answers)
     else:
-        print "And I also ran out of objects :( I've failed"
-        interogation(random.choice([obj for (q, obj) in db]))
+        print "\t\tAnd I also ran out of objects :( I've failed"
+        interrogation(final_obj, answers)(random.choice([obj for (q, obj) in db]), answers)
 
 
-
-
-
-
-
-db[(q, obj)]
-# 0: 'Y'
-temp_db = db
-# number of question and
-
-# for q in QUESTIONS:
-#     for obj in OBJECTS:
-#         db[(q, obj)] = get_answer(q)
-
-# print db
-
-def pick_qestion():
-    return

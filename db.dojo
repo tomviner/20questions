@@ -15,14 +15,32 @@ p6
 g2
 tp7
 I01
-s(g6
-S'bottle'
+s(S'Is it sweet'
 p8
-tp9
-I00
-s(S'Can you drink from it'
-p10
-g8
+S'candy'
+p9
+tp10
+I01
+s(g6
+g4
 tp11
+I00
+s(S'Is it furry'
+p12
+g2
+tp13
+S'n'
+p14
+s(g6
+g9
+tp15
+I00
+s(g12
+g4
+tp16
+I01
+s(g8
+g2
+tp17
 I01
 s.
